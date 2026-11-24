@@ -56,6 +56,27 @@ cd backend && npm test    # Jest + Supertest, banco SQLite em memória
 cd frontend && npm test   # Vitest + Testing Library, com a simulação
 ```
 
+## Rodando com Docker
+
+Pré-requisito: Docker com o plugin Compose. Na raiz do projeto:
+
+```bash
+docker compose up --build
+```
+
+- Frontend: http://localhost:5173 (nginx servindo o build do Vite, usando a API real)
+- Backend: http://localhost:3000 (API e links curtos)
+
+As portas no host precisam ser 3000 e 5173, porque o CORS do backend só aceita `http://localhost:5173` e os links curtos usam `http://localhost:3000`. Pare o `npm run dev` antes, se ele estiver usando essas portas.
+
+O banco fica em `/data/encurtador.sqlite`, dentro do volume `encurtador-data`. Ele é separado do `backend/encurtador.sqlite` usado fora do Docker e continua existindo entre um `up` e outro. Para parar os containers e **apagar o banco**:
+
+```bash
+docker compose down -v
+```
+
+Sem o `-v`, `docker compose down` só para os containers e mantém os dados.
+
 ## API
 
 | Método | Rota                   | Descrição            | Sucesso |
