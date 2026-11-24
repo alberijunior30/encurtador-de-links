@@ -112,11 +112,3 @@ Este projeto foi desenvolvido por agentes **Claude Code** orquestrados no [Maest
 2. Com o contrato fechado, o Back e o Front trabalharam **em paralelo**. O Front usou uma simulação com o mesmo formato da API até o backend ficar pronto.
 3. O Planejador delegava uma tarefa pequena por vez e esperava o agente confirmar que tinha terminado.
 4. O humano aprovava cada tarefa e testava a integração entre frontend e backend. A partir da F6, cada entrega também passou pelo Revisor antes de chegar ao humano.
-
-### Lições aprendidas
-
-- **Agentes testando no banco real:** num smoke test, a porta 3000 já estava ocupada pelo servidor do humano. Os testes do agente caíram nesse servidor e gravaram dados no banco real. Desde então, as tarefas exigem checar a porta antes de subir um servidor.
-- **Avisos escondidos pelo Vitest:** na F3 e na F4, o Front relatou "sem warnings" porque conferiu no modo padrão do Vitest, que esconde os avisos de testes que passam. Havia avisos de `act()` no `theme.test.jsx` (F4), que só apareceram com `--reporter=verbose`.
-- **Perda de contexto após um travamento:** o PC do humano travou com a orquestração rodando. Os arquivos sobreviveram, mas a conversa não. O trabalho foi retomado a partir do código e das notas.
-- **O placeholder que parecia texto:** o Maestri se comunica digitando no terminal do outro agente (PTY). O Planejador confundiu o placeholder cinza do Claude Code com texto digitado e evitou enviar a tarefa por medo de ela "grudar" nesse texto.
-- **Sem git, a revisão fica mais difícil:** sem diff, o Revisor teve que conferir as mudanças pelas datas dos arquivos e pelo conteúdo. Por isso o git só foi iniciado no fim do projeto, depois da F6.
